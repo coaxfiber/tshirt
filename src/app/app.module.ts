@@ -10,6 +10,7 @@ import { ColorPickerModule } from 'ngx-color-picker';
 import { SimpleDialogsComponent } from './dialogs/simple-dialogs/simple-dialogs.component';
 import { DesignsComponent } from './dialogs/designs/designs.component';
 import { SelectDialogsComponent } from './dialogs/designs/select-dialogs/select-dialogs.component';
+import { BackgroundComponent } from './dialogs/background/background.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { SelectDialogsComponent } from './dialogs/designs/select-dialogs/select-
     SimpleDialogsComponent,
     DesignsComponent,
     SelectDialogsComponent,
+    BackgroundComponent,
   ],
   imports: [
     BrowserModule,
@@ -29,7 +31,8 @@ import { SelectDialogsComponent } from './dialogs/designs/select-dialogs/select-
   entryComponents: [
     SimpleDialogsComponent,
     DesignsComponent,
-    SelectDialogsComponent
+    SelectDialogsComponent,
+    BackgroundComponent
   ],
   providers: [GlobalvarsService],
   bootstrap: [AppComponent]

@@ -35,6 +35,13 @@
                       </tr>
                       <tr>
                         <td>
+                          <button (click)="openDialogBg()" mat-raised-button>
+                           <mat-icon>insert_photo</mat-icon> Background
+                          </button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
                           <button (click)="changeselect('chi1')" mat-raised-button>
                            <mat-icon>cloud_upload</mat-icon> upload
                           </button>
@@ -47,7 +54,6 @@
               </table>
 
               <div style="height: 10px"></div>
-
               <div style="height: 30px"></div>
 
             <b>Canvas position X </b>&nbsp;<input type="number" maxlength="3" max="100" min="0" [(ngModel)]="updown">
@@ -179,7 +185,7 @@
     text-decoration: none;
     color: #3f51b5;
   }
-</style>t
+</style>
   <div>
 
     <div style="height: calc(100vh - 150px);margin-left: 20px;width: 650px; background-image: url(assets/tshirtsmall.jpg);background-repeat: no-repeat; background-size: 650px">
@@ -197,6 +203,9 @@
       <img src="assets/design/{{design}}.png" alt="No Image"  #siii
       [ngStyle]="{'width': size+'px','position':'absolute','z-index':'1'}"
       cdkDrag [cdkDragFreeDragPosition]="dragPosition" cdkDragBoundary=".example-boundary" (cdkDragEnded)="onDragEnded($event)" style='cursor: all-scroll;'>
+
+      <img src="assets/background/{{bg}}.png" alt="No Image" style="width: 254px" *ngIf="bg>1">
+
 
       </div>
   </div>

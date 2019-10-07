@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import {  ElementRef, ViewChild, AfterViewInit} from '@angular/core';
 import { SimpleDialogsComponent } from './dialogs/simple-dialogs/simple-dialogs.component';
 import { DesignsComponent } from './dialogs/designs/designs.component';
+import { BackgroundComponent } from './dialogs/background/background.component';
+
 
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 @Component({
@@ -17,11 +19,11 @@ export class AppComponent {
 
   updown=0;
   rightleft=0;
-  isize=100
+  isize=98
 
   selected="chi1";
 
-  dragPosition = {x: 0, y: 0};
+  dragPosition = {x: 5, y: 0};
   @ViewChild('siii', {static: true}) elementView: ElementRef;
   contentHeight: number;
 
@@ -38,11 +40,11 @@ export class AppComponent {
   textadd = false
 
   resettext(){
-    this.textdragPosition = {x: 14, y: 0};
+    this.textdragPosition = {x: 25, y: 20};
   }
 
   constructor(public dialog: MatDialog){
-    this.size = 250;
+    this.size = 235;
   }
 
    openDialog(x): void {
@@ -53,6 +55,20 @@ export class AppComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
+    });
+  }
+  bg=0
+   openDialogBg(): void {
+    const dialogRef = this.dialog.open(BackgroundComponent, {
+      width: '750px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result!=undefined) {
+        if (result.result!='cancel') {
+          this.bg = result.result
+        }
+      }
     });
   }
 
@@ -88,11 +104,8 @@ export class AppComponent {
 
   sliderEvent3(){
     this.changePosition()
-  	this.size = 150+(this.isize/100*77);
+  	this.size = this.isize*2.5;
     this.contentHeight = this.elementView.nativeElement.offsetHeight;
-    if(this.contentHeight>180||this.size>250){
-      alert('Image size is too big')
-    }
   }
 
   changePosition() {

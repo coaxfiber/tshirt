@@ -1,0 +1,12 @@
+<div style="height: calc(100vh - 150px); overflow-y: scroll;">
+
+	
+	<div style="float: left;width: 170px;height:130px;overflow: hidden;" *ngFor="let value of array" >
+		<button mat-button  style="margin: 10px" (click)="viewselect(value)">
+			<img src="assets/background/{{value}}.png" width="135px">
+		</button>
+	</div>
+
+</div>		
+
+<button mat-button style="float: right;position: relative;" (click)="close()" > Close </button>
