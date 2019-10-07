@@ -1,0 +1,24 @@
+
+<div style="max-height: calc(100vh - 100px); overflow-y: scroll;">
+
+<div *ngIf="data.x==1">
+	<img src="assets/drifitsizes.png" style="width: 100%;" alt="error">
+</div>
+<div *ngIf="data.x==2">
+	<img src="assets/cottonsizes.JPG" style="width: 100%;" alt="error">
+</div>
+
+<div *ngIf="data.x==3" style="text-align: center;">
+	<img src="assets/texture1.jpg" style="width:  500px;margin: auto;" alt="error">
+</div>
+
+<div *ngIf="data.x==4" style="text-align: center;">
+	<img src="assets/texture2.jpg" style="width:  500px;margin: auto;" alt="error">
+</div>
+
+<div *ngIf="data.x==5">
+	<img src="assets/design/{{data.d}}.png" style="width: 100%;" alt="error">
+</div>
+
+<button mat-button style="float: right;position: relative;" (click)="close()" > Close </button>
+</div>		

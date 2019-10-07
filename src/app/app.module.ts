@@ -7,18 +7,29 @@ import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ColorPickerModule } from 'ngx-color-picker';
+import { SimpleDialogsComponent } from './dialogs/simple-dialogs/simple-dialogs.component';
+import { DesignsComponent } from './dialogs/designs/designs.component';
+import { SelectDialogsComponent } from './dialogs/designs/select-dialogs/select-dialogs.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
+    SimpleDialogsComponent,
+    DesignsComponent,
+    SelectDialogsComponent,
   ],
   imports: [
     BrowserModule,
     MaterialModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    ColorPickerModule
+    ColorPickerModule,
+  ],
+  entryComponents: [
+    SimpleDialogsComponent,
+    DesignsComponent,
+    SelectDialogsComponent
   ],
   providers: [GlobalvarsService],
   bootstrap: [AppComponent]

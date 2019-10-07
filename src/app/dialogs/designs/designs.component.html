@@ -1,0 +1,48 @@
+<div style="height: calc(100vh - 150px); overflow-y: scroll;">
+
+<div *ngIf="folder==0">
+
+	<button mat-button style="" (click)="setfolder(1,'onepiece',76)">
+		<i class="material-icons" style="font-size: 51px">
+		folder
+		</i> One Piece
+	</button>
+
+	<button mat-button style="" (click)="setfolder(1,'naruto',69)">
+		<i class="material-icons" style="font-size: 50px">
+		folder
+		</i> Naruto
+	</button>
+
+
+	<button mat-button style="" (click)="setfolder(1,'yuyuhakusho',9)">
+		<i class="material-icons" style="font-size: 50px">
+		folder
+		</i> Yu Yu Hakusho
+	</button>
+
+	<button mat-button style="" (click)="setfolder(1,'kimetsunoyaiba',1)">
+		<i class="material-icons" style="font-size: 50px">
+		folder
+		</i> Kimetsu no Yaiba
+	</button>
+
+</div>
+
+<div *ngIf="folder==1" >
+	<button mat-button (click)="setfolder(0,'')"><i class="material-icons">
+	keyboard_backspace
+	</i> Go Back</button>
+	<div style="height: 10px"></div>
+
+	<div style="float: left;height: 100px;overflow: hidden;" *ngFor="let value of array" >
+	<button mat-button  style="margin: 10px" (click)="viewselect(value)">
+		<img src="assets/design/{{design}}/{{value}}.png" width="100px">
+	</button>
+	</div>
+
+</div>
+
+</div>		
+
+<button mat-button style="float: right;position: relative;" (click)="close()" > Close </button>

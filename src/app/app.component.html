@@ -12,26 +12,23 @@
   }
 </style>
 <mat-drawer-container style="height: calc(100vh - 64px)">
-  <mat-drawer #drawer class="example-sidenav" mode="side" opened style="padding: 0;width: 500px;"> 
-
-
-    <mat-tab-group style="padding: 5px;width: 450px;">
-      <mat-tab label="Front" style="overflow: hidden;">
-
+  <mat-drawer #drawer class="example-sidenav" mode="side" opened style="padding: 0;width: 410px;"> 
+      <div style="width: 90%;margin: auto;">
               <br><b>Image</b>
+              <div style="height: 10px"></div>
               <table style="width: 100%">
                 <tr>
                   <td style="width: 200px">
                     
-                    <button (click)="changeselect('chi1')" mat-raised-button>
-                      <img src="assets/chi1.jpg" style="width: 200px;">
+                    <button (click)="openDialog(5)" mat-raised-button>
+                      <img src="assets/design/{{design}}.png" style="width: 200px;">
                     </button>
                   </td>
                   <td>
-                    <table style="width: 100%">
+                    <table style="width: 100%;">
                       <tr>
                         <td>
-                          <button (click)="changeselect('chi1')" mat-raised-button>
+                          <button (click)="openDialogDesign()" mat-raised-button >
                            <mat-icon>add_photo_alternate</mat-icon> See images
                           </button>
                         </td>
@@ -44,12 +41,6 @@
                         </td>
                       </tr>
                     </table>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
 
                   </td>
                 </tr>
@@ -59,7 +50,7 @@
 
               <div style="height: 30px"></div>
 
-            <b>Canvas position X</b>
+            <b>Canvas position X </b>&nbsp;<input type="number" maxlength="3" max="100" min="0" [(ngModel)]="updown">
             <mat-slider
                 (mouseup)="sliderEvent()"
                   style="width: 100%"
@@ -72,7 +63,7 @@
               </mat-form-field>-->
           <br>
               <div style="height: 30px"></div>
-            <b>Image Size</b>
+            <b>Image Size </b>&nbsp;<input type="number" maxlength="3" max="250" min="0" [(ngModel)]="isize">
             <mat-slider
                 (mouseup)="sliderEvent3()"
                   style="width: 100%"
@@ -178,36 +169,58 @@
                 </mat-select>
               </mat-form-field>
               </div>
-      </mat-tab>
-      <mat-tab label="Back"> Content 2 </mat-tab>
-    </mat-tab-group>
+              <br><br><br>
     
 
-
+    </div>
   </mat-drawer>
-
+<style type="text/css">
+  a {
+    text-decoration: none;
+    color: #3f51b5;
+  }
+</style>t
   <div>
 
-    <div style="height: 30px"></div>
-    <div style="height: calc(100vh - 300px);margin-left: 20px;width: 1000px; background-image: url(assets/tshirt.jpg);background-repeat: no-repeat;">
+    <div style="height: calc(100vh - 150px);margin-left: 20px;width: 650px; background-image: url(assets/tshirtsmall.jpg);background-repeat: no-repeat; background-size: 650px">
       
   <div>
-      <div class="example-boundary"  style="margin-top: 110px;margin-left: 130px;position: absolute;overflow: hidden;"
-      [ngStyle]="{'margin-top':margintop+'px','margin-left':'130px','position':'absolute'}"
+      <div class="example-boundary"  style="position: absolute;overflow: hidden;"
+      [ngStyle]="{'margin-top':margintop+'px','margin-left':'195px','position':'absolute'}"
       >
 
-      <p  *ngIf="textadd===true" cdkDrag  cdkDragBoundary=".example-boundary" [cdkDragFreeDragPosition]="textdragPosition" style="display:inline-block;z-index: 2;position: absolute;font-size: 40px"
+      <p  *ngIf="textadd===true" cdkDrag  cdkDragBoundary=".example-boundary" [cdkDragFreeDragPosition]="textdragPosition" style="display:inline-block;z-index: 2;position: absolute;font-size: 40px;cursor: all-scroll;"
       [ngStyle]="{'display':'inline-block','position':'absolute','z-index':'2','font-size':textsize+'px','margin':'0','color': textcolor,'-webkit-text-stroke-color':textstroke,'-webkit-text-stroke-width':'1px','font-style':textstyle,'font-weight':textweight,'font-family':textfamily}">
         {{text}}
       </p>
 
-      <img src="assets/{{selected}}.jpg" alt="No Image"  #siii
+      <img src="assets/design/{{design}}.png" alt="No Image"  #siii
       [ngStyle]="{'width': size+'px','position':'absolute','z-index':'1'}"
-      cdkDrag [cdkDragFreeDragPosition]="dragPosition" cdkDragBoundary=".example-boundary" (cdkDragEnded)="onDragEnded($event)" >
+      cdkDrag [cdkDragFreeDragPosition]="dragPosition" cdkDragBoundary=".example-boundary" (cdkDragEnded)="onDragEnded($event)" style='cursor: all-scroll;'>
 
       </div>
-
   </div>
+    </div>
+    <div style="padding: 10px">
+      <b>*NOTE: </b>
+      <ul>
+        <li><b>White backround/colors</b> will be removed from the image.</li>
+        <li>Printed on <b>white t-shirt only</b>.
+          <ul>
+            <li><b><a href="javascript:void(0)" (click)="openDialog(3)">Dri-fit</a> t-shirts</b> for <a href="javascript:void(0)" (click)="openDialog(1)">S to XXL</a></li>
+            <li><b><a href="javascript:void(0)" (click)="openDialog(4)">Cotton</a> t-shirts </b> for <a href="javascript:void(0)" (click)="openDialog(2)">S to XXL</a></li>
+          </ul>
+        </li>
+        <li>The <b>Canvas</b> size is 210 × 297 millimeters or 8.27 × 11.69 inches.
+          <ul>
+            <li>Disregarding the size of the t-shirt.</li>
+          </ul>
+        </li>
+        <li><b>1 image and 1 text</b> is only allowed in the </li>
+          <ul>
+            <li>Or <b>pm me in fb(<a href="https://www.facebook.com/coaxfiber" target="_blank">facebook.com/coaxfiber</a>)</b> for your idea. </li>
+          </ul>
+      </ul>
     </div>
   </div>
 

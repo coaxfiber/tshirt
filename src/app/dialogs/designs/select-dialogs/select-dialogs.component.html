@@ -1,0 +1,20 @@
+<div style="max-height: calc(100vh - 100px);overflow-y: scroll;">
+	
+<button mat-button style="float: right;" (click)="close()" ><i class="material-icons">
+close
+</i> </button>
+<img src="assets/design/{{data.folder}}/{{data.selected}}.png" style="width: 100%;">
+
+<button mat-button color="primary" style="float: left;" (click)="pre()" ><i class="material-icons">
+chevron_left
+</i> Previous</button>
+<button mat-button color="primary" style="float: right;" (click)="next()" >Next <i class="material-icons">
+chevron_right
+</i> </button>
+
+
+<button mat-button style="margin-right: auto;margin-left: auto;display: block;background-color: #3f51b5;color: white" (click)="select()" ><i class="material-icons">
+check
+</i> Select</button>
+<br><br>
+</div>

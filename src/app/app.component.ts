@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import {  ElementRef, ViewChild, AfterViewInit} from '@angular/core';
+import { SimpleDialogsComponent } from './dialogs/simple-dialogs/simple-dialogs.component';
+import { DesignsComponent } from './dialogs/designs/designs.component';
 
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -8,13 +11,13 @@ import {  ElementRef, ViewChild, AfterViewInit} from '@angular/core';
 })
 export class AppComponent {
   title = 'aurasystem';
-  margintop=110;
-  marginleft=130
+  margintop=140;
+  marginleft=180
   size = 100
 
   updown=0;
   rightleft=0;
-  isize=0
+  isize=100
 
   selected="chi1";
 
@@ -30,15 +33,43 @@ export class AppComponent {
   text='';
   textfamily ="'Times New Roman', Times, serif"
 
-  textdragPosition = {x: 0, y: 0};
+  textdragPosition = {x: 14, y: 0};
 
   textadd = false
 
   resettext(){
-    this.textdragPosition = {x: 0, y: 0};
+    this.textdragPosition = {x: 14, y: 0};
   }
 
-  constructor(){
+  constructor(public dialog: MatDialog){
+    this.size = 250;
+  }
+
+   openDialog(x): void {
+    const dialogRef = this.dialog.open(SimpleDialogsComponent, {
+      width: '750px',
+      data: { x: x, d:this.design}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
+  design = "onepiece/2"
+   openDialogDesign(): void {
+    const dialogRef = this.dialog.open(DesignsComponent, {
+      width: '90%'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      if (result!=undefined) {
+        if (result.result!='cancel') {
+          this.design = result.result
+        }
+      }
+    });
   }
 
   changeselect(select){
@@ -46,7 +77,7 @@ export class AppComponent {
   }
 
   sliderEvent(){
-  	this.margintop = 80+((this.updown/100*312));
+  	this.margintop = 80+((this.updown/100*400));
     //console.log(this.margintop)
   }
 
@@ -57,13 +88,9 @@ export class AppComponent {
 
   sliderEvent3(){
     this.changePosition()
-
-  	this.size = 100+(this.isize/100*77);
-    //console.log(this.size)
+  	this.size = 150+(this.isize/100*77);
     this.contentHeight = this.elementView.nativeElement.offsetHeight;
-
-    //console.log(this.contentHeight)
-    if(this.contentHeight>177||this.size>250){
+    if(this.contentHeight>180||this.size>250){
       alert('Image size is too big')
     }
   }
@@ -80,14 +107,14 @@ onDragEnded(event) {
   console.log('x: ' + (boundingClientRect.x - parentPosition.left), 'y: ' + (boundingClientRect.y - parentPosition.top));        
 }
 
-getPosition(el) {
-  let x = 0;
-  let y = 0;
-  while(el && !isNaN(el.offsetLeft) && !isNaN(el.offsetTop)) {
-    x += el.offsetLeft - el.scrollLeft;
-    y += el.offsetTop - el.scrollTop;
-    el = el.offsetParent;
+  getPosition(el) {
+    let x = 0;
+    let y = 0;
+    while(el && !isNaN(el.offsetLeft) && !isNaN(el.offsetTop)) {
+      x += el.offsetLeft - el.scrollLeft;
+      y += el.offsetTop - el.scrollTop;
+      el = el.offsetParent;
+    }
+    return { top: y, left: x };
   }
-  return { top: y, left: x };
-}
 }
