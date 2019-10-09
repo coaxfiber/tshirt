@@ -11,7 +11,7 @@ export class DesignsComponent implements OnInit {
 
 	folder = 0;
   array = []
-
+  item
   constructor(public dialog: MatDialog,public dialogRef: MatDialogRef<DesignsComponent>,@Inject(MAT_DIALOG_DATA) public data: any,) { }
 
   ngOnInit() {
@@ -24,6 +24,7 @@ export class DesignsComponent implements OnInit {
     for (var i = 0; i < x; ++i) { // array for onepiece
      this.array.push(i+1)
     }
+    this.item=x
   }
   design
   setfolder(x,desc,set)
@@ -44,7 +45,7 @@ export class DesignsComponent implements OnInit {
       if (result!=undefined) {
         if (result.result!='cancel') {
           console.log(this.design)
-           this.dialogRef.close({result:this.design+"/"+result.result}); 
+           this.dialogRef.close({result:'assets/design/'+this.design+"/"+result.result+".png"}); 
         }
       }
     });

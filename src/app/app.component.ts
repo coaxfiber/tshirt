@@ -3,8 +3,10 @@ import {  ElementRef, ViewChild, AfterViewInit} from '@angular/core';
 import { SimpleDialogsComponent } from './dialogs/simple-dialogs/simple-dialogs.component';
 import { DesignsComponent } from './dialogs/designs/designs.component';
 import { BackgroundComponent } from './dialogs/background/background.component';
+import { OrdersComponent } from './dialogs/orders/orders.component';
 
-
+import { DomSanitizer } from '@angular/platform-browser';
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 @Component({
   selector: 'app-root',
@@ -19,12 +21,11 @@ export class AppComponent {
 
   updown=0;
   rightleft=0;
-  isize=98
+  isize=95
 
   selected="chi1";
 
   dragPosition = {x: 5, y: 0};
-  @ViewChild('siii', {static: true}) elementView: ElementRef;
   contentHeight: number;
 
   textsize=12;
@@ -43,19 +44,85 @@ export class AppComponent {
     this.textdragPosition = {x: 25, y: 20};
   }
 
-  constructor(public dialog: MatDialog){
+
+  form: FormGroup;
+  loading: boolean = false;
+  @ViewChild('fileInput', {static: true}) fileInput: ElementRef;
+
+   createForm() {
+    this.form = this.fb.group({
+      name: ['', Validators.required],
+      avatar: null
+    });
+  }
+  error=''
+  imagebase64 =undefined
+  maindoclabel="Choose a file";
+  onFileChange(event) {
+
+    let reader = new FileReader();
+    if(event.target.files && event.target.files.length > 0) {
+      let file = event.target.files[0];
+      reader.readAsDataURL(file);
+
+      reader.onload = () => {
+        if (file.type.includes('image')) {
+          this.form.get('avatar').setValue({
+            filename: file.name,
+            filetype: file.type,
+            value: reader.result.toString().split(',')[1]
+          })
+          if (this.form.value.avatar!=null) {
+           this.imagebase64=this.domSanitizer.bypassSecurityTrustUrl('data:image/jpeg;charset=utf-8;base64,'+this.form.value.avatar.value)
+           
+            this.maindoclabel = file.name;
+          }else{
+            this.maindoclabel = "Choose a file";
+          }this.error=''
+        }else{
+          this.error = "Invalid Image Type";
+        }
+      };
+    }
+   
+  }
+
+  clearFile() {
+    this.imagebase64 = undefined
+    this.maindoclabel = "Choose a file";
+    this.form.get('avatar').setValue(null);
+    this.fileInput.nativeElement.value = '';
+    this.error=''
+  }
+
+  constructor(private domSanitizer: DomSanitizer, private fb: FormBuilder,public dialog: MatDialog){
     this.size = 235;
+    this.createForm()
+    setTimeout(console.log.bind(console, '%cStop!', 'color: red;font-size:75px;font-weight:bold;-webkit-text-stroke: 1px black;'), 0);
+    setTimeout(console.log.bind(console, '%cThis is a browser feature intended for developers.', 'color: black;font-size:20px;'), 0);
+    
   }
 
    openDialog(x): void {
-    const dialogRef = this.dialog.open(SimpleDialogsComponent, {
-      width: '750px',
-      data: { x: x, d:this.design}
-    });
+     if (this.maindoclabel=='Choose a file') {
+        const dialogRef = this.dialog.open(SimpleDialogsComponent, {
+          width: '750px',
+          data: { x: x, d:this.design}
+        });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
+        dialogRef.afterClosed().subscribe(result => {
+          console.log('The dialog was closed');
+        });
+     }else {
+        const dialogRef = this.dialog.open(SimpleDialogsComponent, {
+          width: '750px',
+          data: { x: x, d:this.imagebase64}
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+          console.log('The dialog was closed');
+        });
+     }
   }
   bg=0
    openDialogBg(): void {
@@ -71,8 +138,54 @@ export class AppComponent {
       }
     });
   }
+tshirtsize=''
+error2=''
+openDialogOrder(): void {
+  this.error2=''
+  var x=''
+  if (this.tshirtsize=='') {
+    x=x+"*Size of the t-shirt is required"
+  }
 
-  design = "onepiece/2"
+  this.error2 = x;
+  if (x=='') {
+    var im=''
+    if (this.form.value.avatar==null) {
+      // code...
+    }else
+      im = this.form.value.avatar.value
+      const dialogRef = this.dialog.open(OrdersComponent, {
+        width: '750px',data:{ 
+          tshirtsize:this.tshirtsize,
+          label:this.maindoclabel,
+          design:this.design, 
+          base64:im,
+          addtext:this.textadd,
+          text:this.text,
+          textsize: this.textsize,
+          textcolor:this.textcolor,
+          textstroke:this.textstroke,
+          textstyle:this.textstyle,
+          textweight:this.textweight,
+          textfamily:this.textfamily,
+          dragposition:this.dragPosition,
+          bg:this.bg,
+          canvasposition:this.updown,
+           }, disableClose: true
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        if (result!=undefined) {
+          if (result.result!='cancel') {
+
+          }
+        }
+      });
+      // code...
+    }
+  }
+
+  design = "assets/design/onepiece/2.png"
    openDialogDesign(): void {
     const dialogRef = this.dialog.open(DesignsComponent, {
       width: '90%'
@@ -83,6 +196,7 @@ export class AppComponent {
       if (result!=undefined) {
         if (result.result!='cancel') {
           this.design = result.result
+          this.clearFile()
         }
       }
     });
@@ -104,8 +218,7 @@ export class AppComponent {
 
   sliderEvent3(){
     this.changePosition()
-  	this.size = this.isize*2.5;
-    this.contentHeight = this.elementView.nativeElement.offsetHeight;
+  	this.size = this.isize*2.54;
   }
 
   changePosition() {

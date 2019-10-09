@@ -17,7 +17,10 @@
 </div>
 
 <div *ngIf="data.x==5">
-	<img src="assets/design/{{data.d}}.png" style="width: 100%;" alt="error">
+	<img [src]="data.d" style="width: 100%;" alt="error">
+</div>
+<div *ngIf="data.x==6">
+	<img  src="assets/cover.jpg" style="width: 100%;" alt="error">
 </div>
 
 <button mat-button style="float: right;position: relative;" (click)="close()" > Close </button>

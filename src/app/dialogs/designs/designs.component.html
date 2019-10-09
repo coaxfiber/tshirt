@@ -1,3 +1,4 @@
+
 <div style="height: calc(100vh - 150px); overflow-y: scroll;">
 
 <div *ngIf="folder==0">
@@ -27,12 +28,18 @@
 		</i> Kimetsu no Yaiba
 	</button>
 
+	<button mat-button style="" (click)="setfolder(1,'mobilelegends',7)">
+		<i class="material-icons" style="font-size: 50px">
+		folder
+		</i> Mobile Legends
+	</button>
+
 </div>
 
 <div *ngIf="folder==1" >
-	<button mat-button (click)="setfolder(0,'')"><i class="material-icons">
+	<button mat-button (click)="setfolder(0,'',1)"><i class="material-icons">
 	keyboard_backspace
-	</i> Go Back</button>
+	</i> Go Back</button>  *Pictures are loading...with {{item}} photos
 	<div style="height: 10px"></div>
 
 	<div style="float: left;height: 100px;overflow: hidden;" *ngFor="let value of array" >

@@ -1,9 +1,25 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
-    <span>Third Line</span>
+    <img src="assets/logo4.png" width="90">
+    <span> Hydra Prints</span>
     <span class="example-spacer"></span>
-    <mat-icon class="example-icon" aria-hidden="false" aria-label="Example heart icon">favorite</mat-icon>
-    <mat-icon class="example-icon" aria-hidden="false" aria-label="Example delete icon">delete</mat-icon>
+    <a href="javascript:void(0)" (click)="openDialog(6)" style="color: white;font-size: 12px"> View Samples</a><!--
+    &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+    <img src="assets/tshirticon.png" width="22">
+    &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+    <img src="assets/mugicon.png" width="22">-->
+   <!-- &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <mat-icon matBadge="0" matBadgeColor="warn">shopping_cart</mat-icon>
+  &nbsp;&nbsp;&nbsp;&nbsp;|
+  <button mat-button [matMenuTriggerFor]="menu"><i class="material-icons">adb</i> Account</button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>
+      &nbsp;&nbsp;<mat-icon>mood</mat-icon>Manage Account&nbsp;&nbsp;</button>
+      <button mat-menu-item>
+      &nbsp;&nbsp;<mat-icon>all_inbox</mat-icon>Orders</button>
+      <button mat-menu-item>
+      &nbsp;&nbsp;<mat-icon>logout</mat-icon>Logout</button>
+    </mat-menu>-->
   </mat-toolbar-row>
 </mat-toolbar>
 <style type="text/css">
@@ -20,8 +36,11 @@
                 <tr>
                   <td style="width: 200px">
                     
-                    <button (click)="openDialog(5)" mat-raised-button>
-                      <img src="assets/design/{{design}}.png" style="width: 200px;">
+                    <button (click)="openDialog(5)" mat-raised-button *ngIf="maindoclabel=='Choose a file'">
+                      <img [src]='design' style="width: 200px;">
+                    </button>
+                    <button (click)="openDialog(5)" mat-raised-button *ngIf="maindoclabel!='Choose a file'">
+                      <img [src]="imagebase64" style="width: 200px;">
                     </button>
                   </td>
                   <td>
@@ -40,23 +59,24 @@
                           </button>
                         </td>
                       </tr>
-                      <tr>
-                        <td>
-                          <button (click)="changeselect('chi1')" mat-raised-button>
-                           <mat-icon>cloud_upload</mat-icon> upload
-                          </button>
-                        </td>
-                      </tr>
                     </table>
 
                   </td>
                 </tr>
               </table>
 
-              <div style="height: 10px"></div>
+              <div style="height: 5px"></div>
+
+            <form [formGroup]="form">
+              <div class="form-group">
+                <input mat-raised-button type="file" id="avatar" (change)="onFileChange($event)" #fileInput class="inputfile" />
+                <label for="avatar">{{maindoclabel}}</label>
+              </div>
+            </form>
+              <p style="background-color: red;color: white;padding: 5px;font-size: 11px;width: 100px" *ngIf="error!=''">{{error}}!!!</p>
               <div style="height: 30px"></div>
 
-            <b>Canvas position X </b>&nbsp;<input type="number" maxlength="3" max="100" min="0" [(ngModel)]="updown">
+            <b>Canvas position X </b>&nbsp;<!--<input type="number" maxlength="3" max="100" min="0" [(ngModel)]="updown">-->
             <mat-slider
                 (mouseup)="sliderEvent()"
                   style="width: 100%"
@@ -69,7 +89,7 @@
               </mat-form-field>-->
           <br>
               <div style="height: 30px"></div>
-            <b>Image Size </b>&nbsp;<input type="number" maxlength="3" max="250" min="0" [(ngModel)]="isize">
+            <b>Image Size </b>&nbsp;<!--<input type="number" maxlength="3" max="250" min="0" [(ngModel)]="isize">-->
             <mat-slider
                 (mouseup)="sliderEvent3()"
                   style="width: 100%"
@@ -187,8 +207,11 @@
   }
 </style>
   <div>
-
-    <div style="height: calc(100vh - 150px);margin-left: 20px;width: 650px; background-image: url(assets/tshirtsmall.jpg);background-repeat: no-repeat; background-size: 650px">
+<table style="width: 100%">
+  <tr>
+    <td style="width: 650px;" valign="text-top">
+      
+    <div style="height: calc(100vh - 150px);width: 650px; background-image: url(assets/tshirtsmall.jpg);background-repeat: no-repeat; background-size: 650px">
       
   <div>
       <div class="example-boundary"  style="position: absolute;overflow: hidden;"
@@ -200,9 +223,13 @@
         {{text}}
       </p>
 
-      <img src="assets/design/{{design}}.png" alt="No Image"  #siii
+      <img [src]="design" alt="No Image"  #siii
       [ngStyle]="{'width': size+'px','position':'absolute','z-index':'1'}"
-      cdkDrag [cdkDragFreeDragPosition]="dragPosition" cdkDragBoundary=".example-boundary" (cdkDragEnded)="onDragEnded($event)" style='cursor: all-scroll;'>
+      cdkDrag [cdkDragFreeDragPosition]="dragPosition" cdkDragBoundary=".example-boundary" (cdkDragEnded)="onDragEnded($event)" style='cursor: all-scroll;'  *ngIf="maindoclabel=='Choose a file'">
+
+      <img [src]="imagebase64" alt="No Image"  #sii
+      [ngStyle]="{'width': size+'px','position':'absolute','z-index':'1'}"
+      cdkDrag [cdkDragFreeDragPosition]="dragPosition" cdkDragBoundary=".example-boundary" (cdkDragEnded)="onDragEnded($event)" style='cursor: all-scroll;'  *ngIf="maindoclabel!='Choose a file'">
 
       <img src="assets/background/{{bg}}.png" alt="No Image" style="width: 254px" *ngIf="bg>1">
 
@@ -210,9 +237,42 @@
       </div>
   </div>
     </div>
-    <div style="padding: 10px">
+    </td>
+    <td>
+      <div style="height: 14px"></div>
+      <label class="example-margin"><b>T-shirt Size:</b></label>
+      <div style="height: 14px"></div>
+    <section class="example-section" style="padding-left: 10px ">
+      <mat-radio-group [(ngModel)]="tshirtsize">
+        <mat-radio-button class="example-margin" value="xs">X Small</mat-radio-button><div style="height: 14px"></div>
+        <mat-radio-button class="example-margin" value="s">Small</mat-radio-button><div style="height: 14px"></div>
+        <mat-radio-button class="example-margin" value="m">Medium</mat-radio-button><div style="height: 14px"></div>
+        <mat-radio-button class="example-margin" value="l">Large</mat-radio-button><div style="height: 14px"></div>
+        <mat-radio-button class="example-margin" value="xl">X Large</mat-radio-button><div style="height: 14px"></div>
+        <mat-radio-button class="example-margin" value="xxl">XX Large</mat-radio-button>
+      </mat-radio-group>
+    </section>
+
+    <p style="font-size: 25px;margin-bottom: 0px">&#8369;<b>180</b></p>
+    <div style="height: 5px"></div>
+      <button mat-button style="background-color: #ff4081;color: white;font-size: 20px" (click)="openDialogOrder()">
+        <mat-icon>shopping_cart</mat-icon> ORDER&nbsp;</button>
+
+              <p style="background-color: red;color: white;padding: 5px;font-size: 12px;width: 200px" *ngIf="error2!=''">{{error2}}</p>
+
+        <p>*After ordering. PM us the <b>order code</b><br>
+        <a href="https://www.facebook.com/hydraprints" target="_blank">facebook.com/hydraprints</a></p>
+
+    <div style="height: 5px"></div>
+    <div style="padding: 10px;float: left;background-color: #f0f0f0">
       <b>*NOTE: </b>
       <ul>
+        <li>Available on <b>TUGUEGARAO CITY ONLY</b>
+          <ul>
+            <li>Cash on delivery.(Plus &#8369;30)</li>
+            <li>PM us for bulk orders for same delivery rate.</li>
+          </ul>
+        </li>
         <li><b>White backround/colors</b> will be removed from the image.</li>
         <li>Printed on <b>white t-shirt only</b>.
           <ul>
@@ -225,12 +285,16 @@
             <li>Disregarding the size of the t-shirt.</li>
           </ul>
         </li>
-        <li><b>1 image and 1 text</b> is only allowed in the </li>
+        <li><b>1 image and 1 text</b> is only allowed in this page 
           <ul>
-            <li>Or <b>pm me in fb(<a href="https://www.facebook.com/coaxfiber" target="_blank">facebook.com/coaxfiber</a>)</b> for your idea. </li>
-          </ul>
+            <li>Or <b>PM us</b> for customization. </li>
+          </ul></li>
+          <li>Single order only or PM us :D</li>
       </ul>
     </div>
+    </td>
+  </tr>
+</table>
   </div>
 
 

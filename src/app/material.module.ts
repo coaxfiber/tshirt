@@ -20,19 +20,23 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatSliderModule} from '@angular/material/slider';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatBadgeModule} from '@angular/material/badge';
+import { MatRadioModule } from '@angular/material';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 @NgModule({
   imports: [MatButtonModule, MatToolbarModule,MatIconModule,MatCardModule,MatStepperModule,
   MatFormFieldModule,FormsModule, ReactiveFormsModule,MatInputModule,MatSelectModule,
   MatCheckboxModule,MatListModule,MatGridListModule,MatSidenavModule,MatExpansionModule,
   MatMenuModule,MatTabsModule,MatDialogModule,MatProgressSpinnerModule,MatSliderModule,DragDropModule,
-  MatSlideToggleModule
+  MatSlideToggleModule,MatBadgeModule,MatRadioModule,MatSnackBarModule,MatProgressBarModule
   ],
   exports: [MatButtonModule, MatToolbarModule,MatIconModule,MatCardModule,MatStepperModule,
   MatFormFieldModule,FormsModule, ReactiveFormsModule,MatInputModule,MatSelectModule,
   MatCheckboxModule,MatListModule,MatGridListModule,MatSidenavModule,MatExpansionModule,
   MatMenuModule,MatTabsModule,MatDialogModule,MatProgressSpinnerModule,MatSliderModule,DragDropModule,
-  MatSlideToggleModule
+  MatSlideToggleModule,MatBadgeModule,MatRadioModule,MatSnackBarModule,MatProgressBarModule
   ],
 })
 export class MaterialModule { }

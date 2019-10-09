@@ -1,0 +1,19 @@
+<div *ngIf="load!=undefined">
+<div style="max-height: calc(100vh - 200px)">
+<mat-toolbar>ORDER CODE: &nbsp;<b>{{oc}}</b>&nbsp;<button (click)="copyMessage(oc)"  mat-raised-button><i class="material-icons">
+file_copy
+</i> Copy</button></mat-toolbar>
+<mat-card>
+Instructions:
+<ul>
+	<li>Copy the order code and PM us on 
+        <a href="https://www.facebook.com/hydraprints" target="_blank">facebook.com/hydraprints</a>.</li>
+    <li>Failing to PM us the order code will automatically remove the designs created.</li>
+    <li>You can always create your designs and order again.</li>
+</ul>
+<button (click)="copyMessage2(oc)"  mat-raised-button>Copy and close</button>
+</mat-card>
+</div>
+</div>
+
+<mat-progress-bar mode="indeterminate" *ngIf="load==undefined"></mat-progress-bar>
